@@ -93,6 +93,12 @@ variable "default_pool_type" {
 }
 
 
+variable "prefix_name" {
+  description = "Prefix Name for the deployment"
+  default     = "aks"
+}
+
+
 
 
 
