@@ -91,6 +91,15 @@ resource "helm_release" "nginx-ingress" {
     value = "linux"
   }
 }
+####running apps
+resource "null_resource" "main" {
+  provisioner "local-exec" {
+    command = "az aks get-credentials --resource-group ${var.prefix_name}-rg --name ${var.prefix_name}-aks --overwrite-existing && kubectl apply -f deployment.yaml" # && kubectl create namespace wavy-whatsapp && kubectl create secret tls wavy-global --key wildcard_wavy_global.key --cert wildcard_wavy_global.crt -n wavy-whatsapp"
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster.cluster
+  ]
+}
 resource "azurerm_monitor_diagnostic_setting" "aks_cluster" {
   name                       = "${azurerm_kubernetes_cluster.cluster.name}-audit"
   target_resource_id         = azurerm_kubernetes_cluster.cluster.id
