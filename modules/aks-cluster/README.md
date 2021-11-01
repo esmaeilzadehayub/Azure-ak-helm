@@ -1,4 +1,4 @@
-#kubernetes_ingress
+# kubernetes_ingress
 
 Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. 
 An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
@@ -83,7 +83,7 @@ resource "kubernetes_pod" "example2" {
 }
 ```
 
-#Managing Helm Charts via Terraform
+# Managing Helm Charts via Terraform
 
 For services packaged with Helm, we can also use Terraform to deploy charts and run tests.
 Helm provides application definitions in the form of charts. Services or applications often have official charts for streamlining deployment. 
