@@ -2,7 +2,6 @@
 
 Define AKS cluster with Terraform
 
-![image](https://user-images.githubusercontent.com/28998255/139658802-eb8ceac5-4773-4b74-a095-10cb924ce8a8.png)
 
 Introduction
 This written Infra as Code (IaC) workshop show how to create AKS cluster using Hashicorp Terraform
@@ -21,10 +20,14 @@ Project structure
 - aks_identities: the cluster identity unit that manage the cluster service principal
 - aks_network: Create the cluster Virtual Network and subnetwork on Azure
 - log_analytics: Formally Azure Operational Insight is the unit that manages logs and cluster health checks
+
 2- Deployment: is the main function of this layout, responsible of the AKS Kubernetes cluster deployment on Azure.
 In main.tf we define the Terraform modules already created in /modules sub-folder with the appropriate inputs defined in variables.tf or in a terraform.tfvars file (wich is not covered in this guide).
 Stay tuned, in the next section, we’re going to talk about how to create reusable infrastructure with Terraform.
+
 Terraform modules
+
 With Terraform, you can put a bunch of code inside of a Terraform module and reuse that module in multiple places throughout your code. Instead of having the same code copy/pasted in the staging and production environments, you’ll be able to have both environments reuse code from the same module.
+
 This is a big deal. Modules are the key ingredient to writing reusable, maintainable, and testable Terraform code.
 Every Terraform configuration has at least one module, known as its root module (the /deployment in this lab context), which consists of the resources defined in the .tf files in the main working directory.
