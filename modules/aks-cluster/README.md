@@ -3,50 +3,82 @@
 Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. 
 An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 ``` yml
-resource "kubernetes_service" "example" {
+resource "kubernetes_ingress" "example_ingress" {
   metadata {
-    name = "ingress-service"
+    name = "example-ingress"
   }
-  spec {
-    port {
-      port = 80
-      target_port = 80
-      protocol = "TCP"
-    }
-    type = "NodePort"
-  }
-}
 
-resource "kubernetes_ingress" "example" {
-  wait_for_load_balancer = true
-  metadata {
-    name = "example"
-    annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
-    }
-  }
   spec {
+    backend {
+      service_name = "MyApp1"
+      service_port = 8080
+    }
+
     rule {
       http {
         path {
-          path = "/*"
           backend {
-            service_name = kubernetes_service.example.metadata.0.name
-            service_port = 80
+            service_name = "MyApp1"
+            service_port = 8080
           }
+
+          path = "/app1/*"
         }
+
+        path {
+          backend {
+            service_name = "MyApp2"
+            service_port = 8080
+          }
+
+          path = "/app2/*"
+        }
+      }
+    }
+
+    tls {
+      secret_name = "tls-secret"
+    }
+  }
+}
+
+resource "kubernetes_pod" "example" {
+  metadata {
+    name = "terraform-example"
+    labels = {
+      app = "MyApp1"
+    }
+  }
+
+  spec {
+    container {
+      image = "nginx:1.7.9"
+      name  = "example"
+
+      port {
+        container_port = 8080
       }
     }
   }
 }
 
-# Display load balancer hostname (typically present in AWS)
-output "load_balancer_hostname" {
-  value = kubernetes_ingress.example.status.0.load_balancer.0.ingress.0.hostname
-}
+resource "kubernetes_pod" "example2" {
+  metadata {
+    name = "terraform-example2"
+    labels = {
+      app = "MyApp2"
+    }
+  }
 
-# Display load balancer IP 
-output "load_balancer_ip" {
-  value = kubernetes_ingress.example.status.0.load_balancer.0.ingress.0.ip
+  spec {
+    container {
+      image = "nginx:1.7.9"
+      name  = "example"
+
+      port {
+        container_port = 8080
+      }
+    }
+  }
 }
 ```
