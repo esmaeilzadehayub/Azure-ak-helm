@@ -1,5 +1,13 @@
 # Cluster Resource Group
 
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "TERRAFORM_STORAGE_GROUP_RG"
+    storage_account_name = "TERRAFORM_STORAGE_GROUP_NAME"
+    container_name       = "terraformstate"
+    key                  = "state.tfstate"
+  }
+}
 resource "azurerm_resource_group" "aks" {
   name     = var.resource_group_name
   location = var.location
