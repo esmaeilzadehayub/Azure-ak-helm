@@ -1,4 +1,4 @@
-# Azure-aks-helm
+# Azure_aks_helm
 
 Define AKS cluster with Terraform
 
