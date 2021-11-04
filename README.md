@@ -163,5 +163,6 @@ resource "helm_release" "consul" {
   }
 }
 ```
+
 When we run terraform apply, Terraform deploys the Helm release and runs the tests. By using Terraform to deploy the Helm release,
 we can pass attributes from infrastructure resources to the curated application definition in Helm and run available acceptance tests in a single, common workflow.
