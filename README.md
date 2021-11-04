@@ -7,7 +7,8 @@ The directory that holds the Terraform configuration files for this lab has a sp
 Obviously, there are 2 main subfolders: deployment and modules. In order to see the source code structure you can run it.
 ![image](https://user-images.githubusercontent.com/28998255/139659002-35422604-1583-45d7-986c-337909c36d71.png)
 
-Project structure
+# Project structure
+
 1- modules: represent here in this layout the Terraform modules (general re-used functions) . In this lab, we have basically 4 modules:
 - aks_cluster: the main unit providing the AKS service
 - aks_identities: the cluster identity unit that manage the cluster service principal
