@@ -30,7 +30,8 @@ Terraform modules
 With Terraform, you can put a bunch of code inside of a Terraform module and reuse that module in multiple places throughout your code. Instead of having the same code copy/pasted in the staging and production environments, you’ll be able to have both environments reuse code from the same module.
 
 This is a big deal. Modules are the key ingredient to writing reusable, maintainable, and testable Terraform code.
-Every Terraform configuration has at least one module, known as its root module (the /deployment in this lab context), which consists of the resources defined in the .tf files in the main working directory.
+Every Terraform configuration has at least one module, known as its root module (the /deployment in this lab context), which consists of the resources defined in the .tf files in the main working directory.When we run terraform apply, Terraform deploys the Helm release and runs the tests. By using Terraform to deploy the Helm release,
+we can pass attributes from infrastructure resources to the curated application definition in Helm and run available acceptance tests in a single, common workflow.
 
 # kubernetes_ingress
 
@@ -164,5 +165,4 @@ resource "helm_release" "consul" {
 }
 ```
 
-When we run terraform apply, Terraform deploys the Helm release and runs the tests. By using Terraform to deploy the Helm release,
-we can pass attributes from infrastructure resources to the curated application definition in Helm and run available acceptance tests in a single, common workflow.
+
